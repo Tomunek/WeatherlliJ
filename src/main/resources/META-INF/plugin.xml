@@ -30,6 +30,6 @@
             id="Weather"
             icon="/icons/toolWindowIcon.svg"
             anchor="right"
-            factoryClass="org.tomunek.weatherllij.WeatherWindow"/>
+            factoryClass="org.tomunek.weatherllij.WeatherWindowFactory"/>
   </extensions>
 </idea-plugin>

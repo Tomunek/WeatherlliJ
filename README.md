@@ -13,3 +13,11 @@ TODO
 ```console
 # TODO
 ```
+
+## TODO
+- connect to weather API
+- display info from API
+- add icons
+- possibly add auto refreshing
+- possibly add internationalization
+- add screenshots and build instructions to readme
