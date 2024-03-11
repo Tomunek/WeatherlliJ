@@ -11,7 +11,9 @@ This project uses free Open-Meteo weather API: https://open-meteo.com/.
 
 ## Screenshots
 
-TODO
+![Extension in marketplace](screenshots/marketplace_screenshot.png)
+
+![Extension in IntelliJ](screenshots/extension_screen.png)
 
 ## Build and install
 
@@ -44,7 +46,8 @@ and select WeatherLLiJ-(version).jar file located in build/libs folder.
 ## TODO
 
 - add settings panel to set location
-- add icons
+- add weather condition icons
+- make UI look somehow presentable
 - possibly add auto refreshing
 - possibly add internationalization
 - add screenshots to readme
