@@ -1,7 +1,18 @@
-package org.tomunek.weatherllij;
+package org.tomunek.weatherllij.OpenMeteo;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+import org.tomunek.weatherllij.OpenMeteo.JsonResponseModel.OpenMeteoResponse;
+import org.tomunek.weatherllij.WeatherDayData;
+import org.tomunek.weatherllij.WeatherGetException;
+import org.tomunek.weatherllij.WeatherGetter;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,14 +26,6 @@ public class WeatherGetterOpenMeteo implements WeatherGetter {
 
     private WeatherDayData currentWeather;
     private List<WeatherDayData> forecastWeather;
-
-    // TODO: remove
-    private String debug;
-
-    // TODO: remove
-    public String getDebug() {
-        return this.debug;
-    }
 
 
     /**
@@ -99,13 +102,37 @@ public class WeatherGetterOpenMeteo implements WeatherGetter {
             }
             scanner.close();
 
-            debug = response.toString();
+            try {
+                // Parse response into WeatherDayData objects
+                ObjectMapper objectMapper = new ObjectMapper();
+                OpenMeteoResponse openMeteoResponse = objectMapper.readValue(response.toString(), OpenMeteoResponse.class);
 
-            // Parse response into WeatherDayData objects
-            // TODO: parse response JSON into current and forecast WeatherDayData objects
+                // Populate current weather
+                this.currentWeather = new WeatherDayData(
+                        LocalDateTime.parse(openMeteoResponse.current.time),
+                        openMeteoResponse.current.weather_code,
+                        openMeteoResponse.current.temperature_2m,
+                        openMeteoResponse.current_units.temperature_2m,
+                        openMeteoResponse.current.precipitation,
+                        openMeteoResponse.current_units.precipitation);
+
+                // Populate weather forecast
+                this.forecastWeather = new ArrayList<>(this.forecastDays);
+                for (int i = 0; i < this.forecastDays; i++) {
+                    this.forecastWeather.add(new WeatherDayData(
+                            LocalDate.parse(openMeteoResponse.daily.time.get(i)).atStartOfDay(),
+                            openMeteoResponse.daily.weather_code.get(i),
+                            openMeteoResponse.daily.temperature_2m_max.get(i),
+                            openMeteoResponse.daily_units.temperature_2m_max,
+                            openMeteoResponse.daily.precipitation_sum.get(i),
+                            openMeteoResponse.daily_units.precipitation_sum));
+                }
+            } catch (Exception e) {
+                throw new WeatherGetException("Could not parse data into objects");
+            }
 
         } catch (Exception e) {
-            throw new WeatherGetException("Error occurred while getting weather data", e);
+            throw new WeatherGetException("Error occurred while getting weather data: " + e, e);
         }
     }
 

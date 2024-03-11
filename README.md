@@ -43,7 +43,6 @@ and select WeatherLLiJ-(version).jar file located in build/libs folder.
 
 ## TODO
 
-- display info from API
 - add settings panel to set location
 - add icons
 - possibly add auto refreshing

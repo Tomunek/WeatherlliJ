@@ -10,7 +10,4 @@ public interface WeatherGetter {
     WeatherDayData getCurrentWeather();
 
     List<WeatherDayData> getForecastWeather();
-
-    // TODO: remove
-    String getDebug();
 }

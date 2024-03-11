@@ -1,9 +1,12 @@
 package org.tomunek.weatherllij;
 
 import com.intellij.ui.JBColor;
+import org.tomunek.weatherllij.OpenMeteo.WeatherGetterOpenMeteo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 final class WeatherWindowContent {
@@ -11,22 +14,29 @@ final class WeatherWindowContent {
 
     private final WeatherGetter weatherGetter;
 
+    private final int forecastDays = 5;
+
     private final JPanel contentPanel = new JPanel();
 
-    private final JLabel counterDisplay = new JLabel();
-    private final JLabel counterDisplay2 = new JLabel();
+    private final JLabel currentWeatherDisplay = new JLabel();
+    private final List<JLabel> weatherForecastDisplay;
+
 
     private WeatherWindowContent() {
-        this.weatherGetter = new WeatherGetterOpenMeteo(51.45F, 19.27F, 5);
+        this.weatherGetter = new WeatherGetterOpenMeteo(51.45F, 19.27F, forecastDays);
+        this.weatherForecastDisplay = new ArrayList<>(forecastDays);
+        for (int i = 0; i < this.forecastDays; i++) {
+            this.weatherForecastDisplay.add(new JLabel());
+        }
 
         JPanel weatherPanel = new JPanel();
         weatherPanel.setLayout(new BoxLayout(weatherPanel, BoxLayout.PAGE_AXIS));
+        weatherPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
         weatherPanel.add(createCurrentWeatherPanel());
         weatherPanel.add(createWeatherForecastPanel());
         weatherPanel.add(createButtonsPanel());
 
         contentPanel.setLayout(new BorderLayout(0, 20));
-        //contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         contentPanel.add(weatherPanel, BorderLayout.PAGE_START);
         refreshWeatherData();
     }
@@ -40,13 +50,17 @@ final class WeatherWindowContent {
 
     private JPanel createCurrentWeatherPanel() {
         JPanel currentWeatherPanel = new JPanel();
-        currentWeatherPanel.add(counterDisplay);
+        currentWeatherPanel.add(currentWeatherDisplay);
         return currentWeatherPanel;
     }
 
     private JPanel createWeatherForecastPanel() {
         JPanel weatherForecastPanel = new JPanel();
-        weatherForecastPanel.add(counterDisplay2);
+        weatherForecastPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        weatherForecastPanel.setLayout(new BoxLayout(weatherForecastPanel, BoxLayout.PAGE_AXIS));
+        for (int i = 0; i < this.forecastDays; i++) {
+            weatherForecastPanel.add(weatherForecastDisplay.get(i));
+        }
         return weatherForecastPanel;
     }
 
@@ -62,18 +76,23 @@ final class WeatherWindowContent {
         try {
             this.weatherGetter.fetchWeatherData();
         } catch (WeatherGetException e) {
-            counterDisplay.setText("COULD NOT FETCH WEATHER DATA!");
-            counterDisplay.setBackground(new JBColor(new Color(255, 0, 0), new Color(255, 0, 0)));
-            counterDisplay2.setText(e.toString());
+            currentWeatherDisplay.setBackground(new JBColor(new Color(255, 0, 0), new Color(255, 0, 0)));
+            currentWeatherDisplay.setText("COULD NOT FETCH WEATHER DATA!");
+            weatherForecastDisplay.get(0).setText(e.toString());
             return;
         }
 
-        counterDisplay.setText("Received data");
-        counterDisplay2.setText(this.weatherGetter.getDebug());
+        currentWeatherDisplay.setText(this.weatherGetter.getCurrentWeather().displayAsAsciiHTML(true));
+        currentWeatherDisplay.setHorizontalTextPosition(JLabel.CENTER);
+        currentWeatherDisplay.setBorder(BorderFactory.createLineBorder(Color.black));
 
-        // TODO: fill all panels and labels with data from getCurrentWeather() and getForecastWeather()
-        // TODO: create and fill top panel with current weather
-        // TODO: create and fill middle panel with weather forecast
+        for (int i = 0; i < forecastDays; i++) {
+            weatherForecastDisplay.get(i).setText(this.weatherGetter.getForecastWeather().get(i).displayAsAsciiHTML(false));
+            currentWeatherDisplay.setHorizontalTextPosition(JLabel.CENTER);
+        }
+
+        // TODO: Align boxes property
+        // TODO: Add icons
 
     }
 
