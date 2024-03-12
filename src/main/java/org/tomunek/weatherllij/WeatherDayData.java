@@ -6,6 +6,10 @@ import java.time.format.DateTimeFormatter;
 public class WeatherDayData {
     private final LocalDateTime time;
 
+    public Integer getWmoCode() {
+        return wmoCode;
+    }
+
     private final Integer wmoCode;
 
     private final Double temperature;

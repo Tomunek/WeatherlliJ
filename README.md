@@ -45,9 +45,8 @@ and select WeatherLLiJ-(version).jar file located in build/libs folder.
 
 ## TODO
 
+- replace default placeholder assets (plugin icon / tool window icon)
 - add settings panel to set location
-- add weather condition icons
 - make UI look somehow presentable
 - possibly add auto refreshing
 - possibly add internationalization
-- add screenshots to readme

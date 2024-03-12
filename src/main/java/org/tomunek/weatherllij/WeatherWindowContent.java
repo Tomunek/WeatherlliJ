@@ -30,11 +30,17 @@ final class WeatherWindowContent {
         }
 
         JPanel weatherPanel = new JPanel();
-        weatherPanel.setLayout(new BoxLayout(weatherPanel, BoxLayout.PAGE_AXIS));
+        weatherPanel.setLayout(new GridBagLayout());
         weatherPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
-        weatherPanel.add(createCurrentWeatherPanel());
-        weatherPanel.add(createWeatherForecastPanel());
-        weatherPanel.add(createButtonsPanel());
+        GridBagConstraints gridBagConstraint = new GridBagConstraints();
+        gridBagConstraint.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraint.gridx = 0;
+        gridBagConstraint.gridy = 0;
+        weatherPanel.add(createCurrentWeatherPanel(), gridBagConstraint);
+        gridBagConstraint.gridy = 1;
+        weatherPanel.add(createWeatherForecastPanel(), gridBagConstraint);
+        gridBagConstraint.gridy = 2;
+        weatherPanel.add(createButtonsPanel(), gridBagConstraint);
 
         contentPanel.setLayout(new BorderLayout(0, 20));
         contentPanel.add(weatherPanel, BorderLayout.PAGE_START);
@@ -50,14 +56,17 @@ final class WeatherWindowContent {
 
     private JPanel createCurrentWeatherPanel() {
         JPanel currentWeatherPanel = new JPanel();
+        currentWeatherPanel.setBorder(BorderFactory.createLineBorder(JBColor.BLACK));
+        currentWeatherPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
         currentWeatherPanel.add(currentWeatherDisplay);
         return currentWeatherPanel;
     }
 
     private JPanel createWeatherForecastPanel() {
         JPanel weatherForecastPanel = new JPanel();
-        weatherForecastPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-        weatherForecastPanel.setLayout(new BoxLayout(weatherForecastPanel, BoxLayout.PAGE_AXIS));
+        weatherForecastPanel.setBorder(BorderFactory.createLineBorder(JBColor.BLACK));
+        weatherForecastPanel.setLayout(new GridLayout(5, 1));
+        weatherForecastPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
         for (int i = 0; i < this.forecastDays; i++) {
             weatherForecastPanel.add(weatherForecastDisplay.get(i));
         }
@@ -83,17 +92,17 @@ final class WeatherWindowContent {
         }
 
         currentWeatherDisplay.setText(this.weatherGetter.getCurrentWeather().displayAsAsciiHTML(true));
-        currentWeatherDisplay.setHorizontalTextPosition(JLabel.CENTER);
-        currentWeatherDisplay.setBorder(BorderFactory.createLineBorder(Color.black));
+        currentWeatherDisplay.setIcon(
+                WeatherIcons.getImageIconFromWMOCode(this.weatherGetter.getCurrentWeather().getWmoCode()));
 
         for (int i = 0; i < forecastDays; i++) {
-            weatherForecastDisplay.get(i).setText(this.weatherGetter.getForecastWeather().get(i).displayAsAsciiHTML(false));
-            currentWeatherDisplay.setHorizontalTextPosition(JLabel.CENTER);
+            weatherForecastDisplay.get(i).setText(
+                    this.weatherGetter.getForecastWeather().get(i).displayAsAsciiHTML(false));
+            weatherForecastDisplay.get(i).setIcon(
+                    WeatherIcons.getImageIconFromWMOCode(this.weatherGetter.getForecastWeather().get(i).getWmoCode()));
         }
 
         // TODO: Align boxes property
-        // TODO: Add icons
-
     }
 
     public JPanel getContent() {
