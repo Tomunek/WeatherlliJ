@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
-   sodipodi:docname="toolWindowIcon_ligth.svg"
+   sodipodi:docname="toolWindowIcon_dark.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,12 +25,12 @@
      showgrid="true"
      inkscape:zoom="39.4"
      inkscape:cx="4.3781726"
-     inkscape:cy="6.535533"
-     inkscape:window-width="1400"
-     inkscape:window-height="969"
-     inkscape:window-x="520"
-     inkscape:window-y="68"
-     inkscape:window-maximized="0"
+     inkscape:cy="6.5482234"
+     inkscape:window-width="1920"
+     inkscape:window-height="1012"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
      inkscape:current-layer="layer1">
     <inkscape:grid
        type="xygrid"
@@ -47,14 +47,14 @@
      id="layer1">
     <g
        id="g6830"
-       style="stroke:#6c707e;stroke-opacity:1">
+       style="stroke:#ced0d6;stroke-opacity:1">
       <path
-         style="fill:none;stroke:#6c707e;stroke-width:1.38429;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:none;stroke:#ced0d6;stroke-width:1.38429;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          d="M 12.025925,5.0259259 H 0.97407407 c 0,-1.849469 0.92098753,-4.16130538 5.52592593,-4.16130538 4.604939,0 5.525925,2.31183638 5.525925,4.16130538 z"
          id="path859"
          sodipodi:nodetypes="cccc" />
       <path
-         style="fill:none;stroke:#6c707e;stroke-width:1.43614;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:none;stroke:#ced0d6;stroke-width:1.43614;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          d="m 6.5,5 v 5.5 c 0,1.833333 -2.5,1.833333 -2.5,0"
          id="path5883"
          sodipodi:nodetypes="ccc" />

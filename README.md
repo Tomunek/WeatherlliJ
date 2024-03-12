@@ -5,7 +5,6 @@ University project!
 It is common knowledge that programmers, and especially IT students don't leave their basements more than a few times a
 year.
 This plugin allows them to know the weather to more easily imagine what the outside world looks like.  
-Placeholder cloud icon taken from Font Awesome: https://fontawesome.com/icons/cloud?f=classic&s=solid.
 
 This project uses free Open-Meteo weather API: https://open-meteo.com/.
 
@@ -45,7 +44,7 @@ and select WeatherLLiJ-(version).jar file located in build/libs folder.
 
 ## TODO
 
-- replace default placeholder assets (plugin icon / tool window icon)
+- replace placeholder assets (weather condition icons)
 - add settings panel to set location
 - make UI look somehow presentable
 - possibly add auto refreshing
